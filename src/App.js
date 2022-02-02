@@ -20,12 +20,12 @@ function App() {
   const [goblinFormColor, setGoblinFormColor] = useState('');
   
   
-  function submitGoblin(e) {
-    e.preventDefault();
+  function submitGoblin() {
+    
     
     // on submit, make a new goblin object with a random id, a name that comes from the form state, an hp that comes from the form state, and a color that comes from the form state
     const newGoblin = {
-      id: Math.ceil(Math.random()),
+      id: Math.ceil(Math.random() * 9999999),
       name: goblinFormName,
       hp: goblinFormHP,
       color: setGoblinFormColor
@@ -45,9 +45,10 @@ function App() {
 
   function handleFilterGoblins(search) {
     // use the filter method to get an array of goblins whose name includes this search argument
-
+    const someGoblins = allGoblins.filter(goblin => goblin.name.includes(search));
     // if there is a search argument, set the filtered goblins to the filtered goblins
     // if the search argument is undefined, set the filtered goblins in state to just be the array of all goblins
+    search ? setFilteredGoblins(someGoblins) : setFilteredGoblins(allGoblins);
   }
 
 
@@ -55,6 +56,9 @@ function App() {
     <div className="App">
       <div className='current-goblin quarter'>
         <Goblin goblin={{
+          name: goblinFormName,
+          hp: goblinFormHP,
+          color: goblinFormColor
           /* 
             use the goblin form state to make a goblin object and to display it. 
             This will let the user see the current form state 
@@ -67,20 +71,18 @@ function App() {
         <input onChange={(e) => handleFilterGoblins(e.target.value)} />
       </div>
       <GoblinForm 
-        /*
-        This component takes in a ton of props! 
-        Here is the list of props to pass:
-          submitGoblin,
-          goblinFormName, 
-          setGoblinFormName,
-          goblinFormColor, 
-          setGoblinFormColor,
-          goblinFormHP, 
-          setGoblinFormHP,
-        */
+        
+        submitGoblin={submitGoblin}
+        goblinFormName={goblinFormName} 
+        setGoblinFormName={setGoblinFormName}
+        goblinFormColor={goblinFormColor} 
+        setGoblinFormColor={setGoblinFormColor}
+        goblinFormHP={goblinFormHP}
+        setGoblinFormHP={setGoblinFormHP}
+    
       />
       <GoblinList 
-        goblins={[]} // this takes in an array of goblins. If the filteredGoblins has a length, use that array. Otherwise, use the allGoblins array 
+        goblins={[filteredGoblins || allGoblins]} // this takes in an array of goblins. If the filteredGoblins has a length, use that array. Otherwise, use the allGoblins array 
         handleDeleteGoblin={handleDeleteGoblin} // note that the goblin list has access to the ability to delete
       />
     </div>

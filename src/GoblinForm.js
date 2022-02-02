@@ -20,7 +20,7 @@ export default function GoblinForm(props) {
         <label>
             Name
           {/* onChange, use the prop setGoblinFormName to set the parent state */}
-          <input onChange={e => props.setGoblinFormName(e.target.value)} required value={props.goblinFormName} />
+          <input onChange={e => props.setGoblinFormName(e.target.value)} value={props.goblinFormName} />
           {/* note that we're controlling the input's value from parent state */}
         </label>
         <label>
