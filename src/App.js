@@ -25,10 +25,10 @@ function App() {
     
     // on submit, make a new goblin object with a random id, a name that comes from the form state, an hp that comes from the form state, and a color that comes from the form state
     const newGoblin = {
-      id: Math.ceil(Math.random() * 9999999),
+      id: Math.ceil(Math.random() * 999999),
       name: goblinFormName,
       hp: goblinFormHP,
-      color: setGoblinFormColor
+      color: goblinFormColor
     };
     // update the allGoblins array. Add the new goblin to the allGoblins array immutably.
     setAllGoblins([...allGoblins, newGoblin]);
@@ -37,10 +37,11 @@ function App() {
 
   function handleDeleteGoblin(id) {
     // find the index of the goblin in allGoblins with this id
-
+    const goblinId = allGoblins.findIndex(goblin => goblin.id === id);
     // use splice to delete the goblin object at this index
-
+    allGoblins.splice(goblinId, 1);
     // update the allGoblins array immutably to this new, smaller array
+    setAllGoblins([...allGoblins]);
   }
 
   function handleFilterGoblins(search) {
