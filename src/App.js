@@ -56,7 +56,7 @@ function App() {
     setFilteredGoblins(filteredGoblins);
   }
 
-  console.log(allGoblins);
+  
   return (
     <div className="App">
       <div className='current-goblin quarter'>
